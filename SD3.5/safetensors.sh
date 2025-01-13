@@ -19,22 +19,32 @@ PIP_PACKAGES=(
 )
 
 NODES=(
-    
+   "https://github.com/city96/ComfyUI-GGUF.git"
+   "https://github.com/rgthree/rgthree-comfy.git"    
 )
 
 CHECKPOINT_MODELS=(
-)
-
-CLIP_MODELS=(
-    "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors"
-    "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors"
-)
-
-UNET_MODELS=(
+    
 	
 )
 
+CLIP_MODELS=(
+    "https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/t5xxl_fp8_e4m3fn.safetensors"
+    "https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/clip_g.safetensors"
+	"https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/clip_l.safetensors"
+)
+
+UNET_MODELS=(
+	"https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/sd3.5_large-f16.gguf"
+	"https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/sd3.5_large-q4_0.gguf"
+	"https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/sd3.5_large-q4_1.gguf"
+	"https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/sd3.5_large-q5_0.gguf"
+	"https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/sd3.5_large-q5_1.gguf"
+	"https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/sd3.5_large-q8_0.gguf"
+)
+
 VAE_MODELS=(
+   "https://huggingface.co/calcuis/sd3.5-large-gguf/blob/main/diffusion_pytorch_model.safetensors"
 )
 
 LORA_MODELS=(
@@ -59,14 +69,7 @@ function provisioning_start() {
     source /opt/ai-dock/bin/venv-set.sh comfyui
 
     # Get licensed models if HF_TOKEN set & valid
-    if provisioning_has_valid_hf_token; then
-        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
-    else
-        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
-        sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
-    fi
+    
 
     provisioning_print_header
     provisioning_get_apt_packages
