@@ -19,10 +19,12 @@ PIP_PACKAGES=(
 )
 
 NODES=(
-    
+   "https://github.com/city96/ComfyUI-GGUF.git\"
+   "https://github.com/rgthree/rgthree-comfy.git\"    
 )
 
 CHECKPOINT_MODELS=(
+    "https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/flux1-dev.safetensors"
 )
 
 CLIP_MODELS=(
@@ -31,12 +33,15 @@ CLIP_MODELS=(
 )
 
 UNET_MODELS=(
+   
 )
 
 VAE_MODELS=(
+  "https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/ae.safetensors"
 )
 
 LORA_MODELS=(
+  "https://huggingface.co/xey/sldr_flux_nsfw_v2-studio/blob/main/sldr_flux_nsfw_v2-studio.safetensors"
 )
 
 ESRGAN_MODELS=(
