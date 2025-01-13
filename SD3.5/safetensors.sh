@@ -6,7 +6,7 @@
 
 # Packages are installed after nodes so we can fix them...
 
-DEFAULT_WORKFLOW="https://raw.githubusercontent.com/ai-dock/comfyui/main/config/workflows/flux-comfyui-example.json"
+DEFAULT_WORKFLOW="https://raw.githubusercontent.com/KrisMoro/Comfy-Workflows-Files/refs/heads/main/SD3.5/workflow-sd3.5-safetensors.json"
 
 APT_PACKAGES=(
     #"package-1"
