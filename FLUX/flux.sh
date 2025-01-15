@@ -24,7 +24,6 @@ NODES=(
 )
 
 CHECKPOINT_MODELS=(
-    "https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/flux1-dev.safetensors"
 )
 
 CLIP_MODELS=(
@@ -223,7 +222,7 @@ function provisioning_download() {
         hg_repo=$(echo $url | awk -F'/' '{print $4"/"$5}')
         hg_model=$(echo $url | awk -F'/' '{print $NF}')
         echo "$HUGGINGFACE_CLI/huggingface-cli download $hg_repo $hg_model  --repo-type model  --local-dir $dest"
-        $HUGGINGFACE_CLI/huggingface-cli download "$hg_repo" "$hg_model"  --repo-type model  --local-dir "$dest"
+        $HUGGINGFACE_CLI download "$hg_repo" "$hg_model"  --repo-type model  --local-dir "$dest"
     elif 
         [[ -n $CIVITAI_TOKEN && $url =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
         auth_token="$CIVITAI_TOKEN"
