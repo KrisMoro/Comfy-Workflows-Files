@@ -1,5 +1,5 @@
 #!/bin/bash
-HF_TOKEN="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"
+HF_TOKEN=""
 
 
 url="https://huggingface.co/xey/sldr_flux_nsfw_v2-studio/blob/main/sldr_flux_nsfw_v2-studio.safetensors"
