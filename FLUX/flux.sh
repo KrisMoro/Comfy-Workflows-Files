@@ -6,7 +6,7 @@
 
 # Packages are installed after nodes so we can fix them...
 
-DEFAULT_WORKFLOW="https://raw.githubusercontent.com/ai-dock/comfyui/main/config/workflows/flux-comfyui-example.json"
+DEFAULT_WORKFLOW="https://raw.githubusercontent.com/KrisMoro/Comfy-Workflows-Files/refs/heads/main/FLUX/workflow-comfyui_openart.ai.json"
 
 APT_PACKAGES=(
     #"package-1"
@@ -19,8 +19,8 @@ PIP_PACKAGES=(
 )
 
 NODES=(
-   "https://github.com/city96/ComfyUI-GGUF.git\"
-   "https://github.com/rgthree/rgthree-comfy.git\"    
+   "https://github.com/city96/ComfyUI-GGUF.git"
+   "https://github.com/rgthree/rgthree-comfy.git"    
 )
 
 CHECKPOINT_MODELS=(
@@ -217,7 +217,6 @@ function provisioning_download() {
     url=$1
     dest=$2
     if [[ -n $HF_TOKEN && $url =~ ^https://([a-zA-Z0-9_-]+\.)?huggingface\.co(/|$|\?) ]]; then
-        if [[ -n $HF_TOKEN && $url =~ ^https://([a-zA-Z0-9_-]+\.)?huggingface\.co(/|$|\?) ]]; then
         src_type="HF"
         hg_repo=$(echo $url | awk -F'/' '{print $4"/"$5}')
         hg_model=$(echo $url | awk -F'/' '{print $NF}')
