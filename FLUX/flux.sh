@@ -14,7 +14,7 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
-    "huggingface_hub"
+    "huggingface-hub"
     #"package-2"
 )
 
@@ -52,6 +52,7 @@ ESRGAN_MODELS=(
 )
 
 CONTROLNET_MODELS=(
+    "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/blob/main/diffusion_pytorch_model_promax.safetensors"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -79,25 +80,25 @@ function provisioning_start() {
     provisioning_get_nodes
     provisioning_get_pip_packages
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/checkpoints" \
+        "${WORKSPACE}storage/stable_diffusion/models/checkpoints" \
         "${CHECKPOINT_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/unet" \
+        "${WORKSPACE}storage/stable_diffusion/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/lora" \
+        "${WORKSPACE}storage/stable_diffusion/models/lora" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/controlnet" \
+        "${WORKSPACE}storage/stable_diffusion/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/vae" \
+        "${WORKSPACE}storage/stable_diffusion/models/vae" \
         "${VAE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/clip" \
+        "${WORKSPACE}storage/stable_diffusion/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
+        "${WORKSPACE}storage/stable_diffusion/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
     provisioning_print_end
 }
@@ -120,6 +121,7 @@ function provisioning_get_pip_packages() {
     if [[ -n $PIP_PACKAGES ]]; then
             pip_install ${PIP_PACKAGES[@]}
     fi
+    HUGGINGFACE_CLI=$(find /opt -name huggingface-cli -type f)
 }
 
 function provisioning_get_nodes() {
@@ -220,13 +222,14 @@ function provisioning_download() {
         src_type="HF"
         hg_repo=$(echo $url | awk -F'/' '{print $4"/"$5}')
         hg_model=$(echo $url | awk -F'/' '{print $NF}')
-        huggingface-cli download  --repo-type model  "$hg_repo" "$hg_model"  --local-dir "$dest"
+        echo "$HUGGINGFACE_CLI/huggingface-cli download $hg_repo $hg_model  --repo-type model  --local-dir $dest"
+        $HUGGINGFACE_CLI/huggingface-cli download "$hg_repo" "$hg_model"  --repo-type model  --local-dir "$dest"
     elif 
         [[ -n $CIVITAI_TOKEN && $url =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
         auth_token="$CIVITAI_TOKEN"
         src_type="CIVITAI"
         model_version_id=$(echo "$url" | grep -o 'modelVersionId=[0-9]*' | sed 's/modelVersionId=//')
-        wget --show-progress -e dotbytes="${3:-4M}" "https://civitai.com/api/download/models/$model_version_id&format=safetensors&token=$auth_token" -O "$dest" 
+        wget --show-progress -e dotbytes="${3:-4M}" "https://civitai.com/api/download/models/$model_version_id&format=safetensors&token=$auth_token" -O "$dest/" 
     else
         wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$dest" "$url"
     fi
