@@ -42,6 +42,7 @@ VAE_MODELS=(
 
 LORA_MODELS=(
   "https://huggingface.co/xey/sldr_flux_nsfw_v2-studio/blob/main/sldr_flux_nsfw_v2-studio.safetensors"
+  "https://civitai.com/models/562866?modelVersionId=984672"
 )
 
 ESRGAN_MODELS=(
