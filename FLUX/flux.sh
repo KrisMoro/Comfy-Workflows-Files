@@ -19,8 +19,8 @@ PIP_PACKAGES=(
 )
 
 NODES=(
-   "https://github.com/city96/ComfyUI-GGUF.git"
-   "https://github.com/rgthree/rgthree-comfy.git"    
+   "https://github.com/city96/ComfyUI-GGUF"
+   "https://github.com/rgthree/rgthree-comfy"    
 )
 
 CHECKPOINT_MODELS=(
