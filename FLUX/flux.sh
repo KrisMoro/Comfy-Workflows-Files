@@ -20,7 +20,10 @@ PIP_PACKAGES=(
 
 NODES=(
    "https://github.com/city96/ComfyUI-GGUF"
-   "https://github.com/rgthree/rgthree-comfy"    
+   "https://github.com/rgthree/rgthree-comfy"   
+   "https://github.com/Fannovel16/comfyui_controlnet_aux"
+   "https://github.com/gseth/ControlAltAI-Nodes"
+   "https://github.com/yolain/ComfyUI-Easy-Use"
 )
 
 CHECKPOINT_MODELS=(
@@ -51,7 +54,8 @@ ESRGAN_MODELS=(
 )
 
 CONTROLNET_MODELS=(
-    "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/blob/main/diffusion_pytorch_model_promax.safetensors"
+    "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/blob/main/diffusion_pytorch_model_promax.safetensors" #sdxl
+    "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/blob/main/diffusion_pytorch_model.safetensors" #flux
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -229,7 +233,7 @@ function provisioning_download() {
         auth_token="$CIVITAI_TOKEN"
         src_type="CIVITAI"
         model_version_id=$(echo "$url" | grep -o 'modelVersionId=[0-9]*' | sed 's/modelVersionId=//')
-        wget --show-progress -e dotbytes="${3:-4M}" "https://civitai.com/api/download/models/$model_version_id&format=safetensors&token=$auth_token" -P "$dest" 
+        wget --show-progress -e dotbytes="${3:-4M}" "https://civitai.com/api/download/models/$model_version_id&format=SafeTensor&token=$auth_token" -P "$dest" 
     else
         wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$dest" "$url"
     fi
