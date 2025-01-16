@@ -128,6 +128,7 @@ function provisioning_get_nodes() {
         dir="${repo##*/}"
         path="/opt/ComfyUI/custom_nodes/${dir}"
         requirements="${path}/requirements.txt"
+        printf "Custom nodes: Processing $repo. ### Directory $dir "
         if [[ -d $path ]]; then
             if [[ ${AUTO_UPDATE,,} != "false" ]]; then
                 printf "Updating node: %s...\n" "${repo}"
