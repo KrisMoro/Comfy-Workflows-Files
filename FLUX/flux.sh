@@ -228,7 +228,7 @@ function provisioning_download() {
         auth_token="$CIVITAI_TOKEN"
         src_type="CIVITAI"
         model_version_id=$(echo "$url" | grep -o 'modelVersionId=[0-9]*' | sed 's/modelVersionId=//')
-        wget --show-progress -e dotbytes="${3:-4M}" "https://civitai.com/api/download/models/$model_version_id&format=safetensors&token=$auth_token" -O "$dest/" 
+        wget --show-progress -e dotbytes="${3:-4M}" "https://civitai.com/api/download/models/$model_version_id&format=safetensors&token=$auth_token" -P "$dest" 
     else
         wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$dest" "$url"
     fi
